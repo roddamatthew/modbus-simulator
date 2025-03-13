@@ -31,6 +31,12 @@ def animate(i):
         axes[0,i].set_ylabel('Register Value')
         axes[1,i].set_ylabel('Coil Value')
         axes[1,i].set_xlabel('Time')
+
+        axes[0,i].legend(list(range(len(axes[0,i].lines))), loc = 3)
+        axes[1,i].legend(list(range(len(axes[1,i].lines))), loc = 3)
+
+        axes[0,i].grid()
+        axes[1,i].grid()
     fig.tight_layout()
     return
 

@@ -40,7 +40,7 @@ class BasinDataBank( DataBank ):
         else:
             registers[4] = self.basin.rinseLimit
         
-        print( registers )
+        # print( registers )
         
         try:
             return [registers[a] for a in range( address, address + number )]

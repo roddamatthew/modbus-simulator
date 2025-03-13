@@ -4,7 +4,9 @@ Simulation of a simple electroplating industrial process to learn about Modbus! 
 # Run the Simulator
 First, add IP addresses of the hosts to your loopback interface with `setup-network.sh`. By default this will add 5 hosts to your loopback interface (127.0.1.1-127.0.1.5). These changes can be reverted once you're done with `revert-network.sh`.
 
-Then run the simulator with `start-sim.sh`, and finally visualize the process state with `python3 plot.py`. Note, the plotting script also sends a Modbus request to kick off the process.
+Then run the simulator and visualizer with `python3 main.py`. Note that if port 502 is used, the script will require sudo, so you can run it with `sudo {path-to-venv}/bin/python3 main.py`.
 
 ## Requirements
 See `requirements.txt`.
+
+If running with WSL, remember to install `python-tk` to allow matplotlib interactive plotting.
