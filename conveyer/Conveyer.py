@@ -104,7 +104,7 @@ class Conveyer():
 
         c = ModbusClient( 
             host = hosts[( ind - 1 )// 2],
-            port = 5020,
+            port = 502,
             auto_open = True,
             auto_close = False,
         )
