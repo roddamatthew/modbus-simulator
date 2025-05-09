@@ -11,7 +11,6 @@ By default this will add 5 hosts to your loopback interface (127.0.1.1-127.0.1.5
     `revert-network.sh`
 
 
-
 Then run the simulator and visualizer with
 
     `python3 main.py`
