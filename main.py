@@ -6,6 +6,7 @@ from basin.BasinServer import startBasinServer
 from conveyer.ConveyerServer import startConveyerServer
 from multiprocessing import Process
 from collections import deque
+import argparse
 
 def animate(i):
     for i, c in enumerate(clients):
@@ -41,34 +42,42 @@ def animate(i):
     return
 
 if __name__ == '__main__':
-    # # First, spawn a bunch of processes for the different devices
+    # Parse optional host command line argument
+    parser = argparse.ArgumentParser(description="Modbus client with optional host argument")
+    parser.add_argument('-host', type=str, default='127.0.1.1', help='Target host IP address (default: 127.0.1.1)')
+    
+    args = parser.parse_args()
+    
+    print(f"Target host: {args.host}")
+
+    # First, spawn a bunch of processes for the different devices
     servers = [
         Process(
             target = startConveyerServer,
-            kwargs = {'host': '127.0.1.1:502'},
+            kwargs = {'host': f'{args.host}:502'},
         ),
         Process(
             target = startBasinServer,
-            kwargs = {'host': '127.0.1.2:502', 'target': '127.0.1.1:502', 'timer': 5000, 'coil_addr': 1},
+            kwargs = {'host': '127.0.1.2:502', 'target': f'{args.host}:502', 'timer': 5000, 'coil_addr': 1},
         ),
         Process(
             target = startBasinServer,
-            kwargs = {'host': '127.0.1.3:502', 'target': '127.0.1.1:502', 'timer': 10000, 'coil_addr': 3},
+            kwargs = {'host': '127.0.1.3:502', 'target': f'{args.host}:502', 'timer': 10000, 'coil_addr': 3},
         ),
         Process(
             target = startBasinServer,
-            kwargs = {'host': '127.0.1.4:502', 'target': '127.0.1.1:502', 'timer': 10000, 'coil_addr': 5},
+            kwargs = {'host': '127.0.1.4:502', 'target': f'{args.host}:502', 'timer': 10000, 'coil_addr': 5},
         ),
         Process(
             target = startBasinServer,
-            kwargs = {'host': '127.0.1.5:502', 'target': '127.0.1.1:502', 'timer': 5000, 'coil_addr': 7},
+            kwargs = {'host': '127.0.1.5:502', 'target': f'{args.host}:502', 'timer': 5000, 'coil_addr': 7},
         ),
     ]
 
     [p.start() for p in servers]
 
     hosts = [
-        '127.0.1.1', # Conveyer
+        args.host, # Conveyer
         '127.0.1.2', # Basin
         '127.0.1.3', # Basin
         '127.0.1.4', # Basin
